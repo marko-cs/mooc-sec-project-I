@@ -43,7 +43,7 @@ def delete_view(request, id):
         logger.info(log_msg)
     else:
         log_msg = "event=security event,  user=%s, session_key=%s, info=User %s trying to delete record owned by %s " %(str(user), session_key, user, item.user)
-        logger.info(log_msg)       
+        logger.warning(log_msg)       
     return redirect('index')
 
 def login_view(request):
