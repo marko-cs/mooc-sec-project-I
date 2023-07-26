@@ -32,12 +32,11 @@ Do you really want to exit ([y]/n)? y
 # Flaws
 ## A01:2021 – Broken Access Control
 
-- Failed logins logged and "too many failed logins"
-- Session removal after logout
+User can delete only own records. This is done in delete functionality that user is owner corresponding record selected bases on uuid.  
 
 ## A03:2021 – Injection
 
-Input validation and prepared statements, no string catenation 
+All data manipulation done using objects to prevent SQL injection on statements. XSS is prevented using systematically rendering command for HTML formating.      
 
 ## A05:2021 – Security Misconfiguration
 
@@ -46,7 +45,7 @@ Input validation and prepared statements, no string catenation
 
 ## A07:2021 – Identification and Authentication Failures
 
-Session time out set short. That can be exted after success full action.
+Session time out set short. That can be extended after success full action.
 
 ## A09:2021 – Security Logging and Monitoring Failures
 
