@@ -1,0 +1,45 @@
+<html>
+    <head>
+        <title>Mooc Security Project I</title>
+        <link rel="stylesheet" href="https://cdn.simplecss.org/simple.css">
+    </head>
+    <body>
+		<h1>Your Data</h1>
+        <p>
+            <table>
+                <thead>
+                    <tr><th>User</th>
+                        <th>Notes</th>
+                        <th>URL</th>
+                        <th>Action</th>
+                        </tr>   
+                </thead>
+                <tbody>
+                    {% for item in notes%}
+                    <tr>
+                        <td>{{item.user.username}}</td>
+                        <td>{{item.notes}}</td>
+                        <td>{{item.url}}</td>
+                        <td><a href='delete/{{item.uuid}}'>Delete</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            </p>
+        
+        <h2>Add new entry</h2>
+
+        <p>
+            <form action="add_new/" method="post">
+                {% csrf_token %}
+                {{form_add}}
+                <input type="submit" value="Add new"/>
+            </form>
+        </p>
+    
+    <p><form action='logout/' method="POST">
+        {% csrf_token %}
+        <input type="submit" value="Logout"/>
+    </form></p>
+    </body>
+</html>

@@ -1,0 +1,19 @@
+<html>
+    <head>
+        <title>Mooc Security Project I</title>
+        <link rel="stylesheet" href="https://cdn.simplecss.org/simple.css">
+    </head>
+    <body>
+        <h1>Hello from Flaws app</h1>
+        <p>Please login to see further details 
+            <form action="{% url 'login' %}" method="post">
+                {% csrf_token %}
+                {{form}}
+                {% if request.GET.next %}
+                    <input type="hidden" name="next" value="{{request.GET.next}}">
+                {% endif %}
+                <input type="submit" Value="Login">
+            </form>
+        </p>
+    </body>
+</html>
