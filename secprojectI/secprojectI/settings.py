@@ -146,3 +146,11 @@ LOGGING = {
         },
     },
 }
+#
+# Modifications to default values to improve security and maybe hip a bit of usability 
+#
+# Kill session when browser is closed 
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+#
+# Expire after session 30 minutes
+SESSION_EXPIRE_SECONDS = 1800 
