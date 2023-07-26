@@ -44,15 +44,14 @@ Inputs from users can contain harmful content which reads, deletes or inserts da
 All data manipulation done using Django objects to prevent SQL injection on statements. Raw or prepared SQL statements are not used at all. Data selections are based on server side information, not user inputs or parameters. 
 - [views.index_view](https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/views.py#L16) 
 
-
-## A05:2021 – Security Misconfiguration
-
-- Custom http error pages in use to prevent any additional information to be leaked in case of error. 
-- Directory listings disabled
-
 ## A07:2021 – Identification and Authentication Failures
 
-Session time out set short. That can be extended after success full action.
+Authentication and session management is critical for application security. General recommendation is use standard framework functionality for that. 
+
+This application invalidates session if browser is closed to prevent session highjack in case of shared machine. Session lifetime is also made shorter comparing to standard. Both changes are visible in settings.
+
+- [settings.py](https://github.com/marko-cs/mooc-sec-project-I/blob/73d69a6c04a79e112f62f1d6ff44bfe36c46af45/secprojectI/secprojectI/settings.py#L149)
+
 
 ## A09:2021 – Security Logging and Monitoring Failures
 
@@ -73,4 +72,4 @@ CSRF attacker tries to trick innocent end user send request that benefits attack
 
 Django framework has build capability to prevent CSRF. All forms should contain `crsf_toke` which is secret, unique and unpredictable value that is generated to protect form instance. 
 - [login.html](https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/templates/flawsapp/login.html)
-- [index.html] (https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/templates/flawsapp/index.html)   
+- [index.html](https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/templates/flawsapp/index.html)   
