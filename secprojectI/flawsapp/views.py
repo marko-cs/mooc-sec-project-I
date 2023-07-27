@@ -23,13 +23,13 @@ def index_view(request):
 def addnew_view(request):
     if request.method == 'POST':
         form = forms.AddURL(request.POST)
-        ser = request.user
+        user = request.user
         session_key = request.session.session_key
         if form.is_valid():
             data = form.save(commit=False)
-            data.user = request.user
+            data.user = user
             data.save()
-            log_msg = "event=record added,  user=%s, session_key=%s " %(str(user), session_key)
+            log_msg = "event=record added,  user=%s, session_key=%s " %(user, session_key)
             logger.info(log_msg)
         return redirect('index')        
     else:
