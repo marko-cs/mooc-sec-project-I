@@ -75,7 +75,7 @@ Authentication and session management is critical for application security. Gene
 
 This application invalidates session if browser is closed to prevent session highjack in case of shared machine. Session lifetime is also made shorter comparing to standard. Both changes are visible in settings.
 - [settings.py](https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/secprojectI/settings.py#L153)
-- [settings.py] (https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/secprojectI/settings.py#L156)
+- [settings.py](https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/secprojectI/settings.py#L156)
 
 
 ## A09:2021 – Security Logging and Monitoring Failures
@@ -95,6 +95,6 @@ Log entries are created when user logs in and out.
 
 CSRF attacker tries to trick innocent end user send request that benefits attacker. CSFR miss uses trust that receiving web application has towards end user: end user is login and authenticated and web application assumes that received request is valid and end user has send that intentionally. 
 
-Django framework has build capability to prevent CSRF. All forms should contain `crsf_toke` which is secret, unique and unpredictable value that is generated to protect form instance. 
+Django framework has build capability to prevent CSRF. All forms should contain crsf_toke which is secret, unique and unpredictable value that is generated to protect form instance. 
 - [login.html](https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/templates/flawsapp/login.html#L10)
 - [index.html](https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/templates/flawsapp/index.html#L34)   
