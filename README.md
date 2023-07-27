@@ -10,11 +10,27 @@ Project repository is available in [Github](https://github.com/marko-cs/mood-sec
 
 ### Install
 
-- django
-- django extensions
+This project uses only standard Python packages and Django framework. Most connivent way to install needed is follow [course page instructions](https://cybersecuritybase.mooc.fi/installation-guide) if your staring from scratch. Follow those instructions for python and other library installations. 
+
+If you have working python installation Django can be installed with pip.
+```
+pip install django
+```
+
+For application installation git clone should be sufficient.
+```
+git clone git@github.com:marko-cs/mooc-sec-project-I.git
+```
+
+If you don't have git installed all needed can be downloaded in one zip file. 
 
 ### Set-up
-``````
+
+No specific set-up is needed, all needed configuration and data comes with git repository. 
+
+Additional users can be added with Django shell according example below 
+
+```bash
 Markos-MacBook-Air:secprojectI marko$ python3 manage.py shell
 Python 3.10.6 (main, Aug 30 2022, 05:12:36) [Clang 13.1.6 (clang-1316.0.21.2.5)]
 Type 'copyright', 'credits' or 'license' for more information
@@ -28,7 +44,13 @@ In [3]: user = User.objects.create_user("matt", "matt@black.com", "mattpassword"
 
 In [4]:                                                                                                                            
 Do you really want to exit ([y]/n)? y
-``````
+```
+
+Application can be started using Django manage.py and runserver command.
+```
+ python manage.py runserver
+```
+
 # Flaws
 ## A01:2021 – Broken Access Control
 
@@ -52,7 +74,8 @@ All data manipulation done using Django objects to prevent SQL injection on stat
 Authentication and session management is critical for application security. General recommendation is use standard framework functionality for that. 
 
 This application invalidates session if browser is closed to prevent session highjack in case of shared machine. Session lifetime is also made shorter comparing to standard. Both changes are visible in settings.
-- [settings.py](https://github.com/marko-cs/mooc-sec-project-I/blob/73d69a6c04a79e112f62f1d6ff44bfe36c46af45/secprojectI/secprojectI/settings.py#L149)
+- [settings.py](https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/secprojectI/settings.py#L153)
+- [settings.py] (https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/secprojectI/settings.py#L156)
 
 
 ## A09:2021 – Security Logging and Monitoring Failures
@@ -73,5 +96,5 @@ Log entries are created when user logs in and out.
 CSRF attacker tries to trick innocent end user send request that benefits attacker. CSFR miss uses trust that receiving web application has towards end user: end user is login and authenticated and web application assumes that received request is valid and end user has send that intentionally. 
 
 Django framework has build capability to prevent CSRF. All forms should contain `crsf_toke` which is secret, unique and unpredictable value that is generated to protect form instance. 
-- [login.html](https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/templates/flawsapp/login.html)
-- [index.html](https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/templates/flawsapp/index.html)   
+- [login.html](https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/templates/flawsapp/login.html#L10)
+- [index.html](https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/templates/flawsapp/index.html#L34)   
