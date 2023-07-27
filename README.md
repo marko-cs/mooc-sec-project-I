@@ -1,16 +1,16 @@
 # mood-sec-project-I
 
-This project has been created for course [Cyber Security Base 2023 - Project I](https://cybersecuritybase.mooc.fi/module-3.1). 
+This project has been created for course https://cybersecuritybase.mooc.fi/module-3.1. 
 
 # Project
 
-Project repository is available in [Github](https://github.com/marko-cs/mood-sec-project-I). 
+Project repository is available in https://github.com/marko-cs/mood-sec-project-I. 
 
 ## Install and set-up
 
 ### Install
 
-This project uses only standard Python packages and Django framework. Most connivent way to install needed is follow [course page instructions](https://cybersecuritybase.mooc.fi/installation-guide) if your staring from scratch. Follow those instructions for python and other library installations. 
+This project uses only standard Python packages and Django framework. Most connivent way to install needed is follow https://cybersecuritybase.mooc.fi/installation-guide if your staring from scratch. Follow those instructions for python and other library installations. 
 
 If you have working python installation Django can be installed with pip.
 ```
@@ -48,7 +48,7 @@ Do you really want to exit ([y]/n)? y
 
 Application can be started using Django manage.py and runserver command.
 ```
- python manage.py runserver
+python manage.py runserver
 ```
 
 # Flaws
@@ -56,26 +56,42 @@ Application can be started using Django manage.py and runserver command.
 
 With broken access control user can view or manipulate data which is not owned or managed by particular user.
 
-Login is required to view any data in application. That use Django build in login functionality. User can see only own data.
-- [views.index_view](https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/views.py#L16)
+Login is required to view or update any data in application. That use Django build in login functionality. 
+- https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/views.py#L15
 
-In this application user can delete only own records. Delete functionality checks that curren user is also owner of record to be deleted. If that is not the case deletion is not done and warning log entry is created. See details in 
-- [views.delete_view](https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/views.py#L37) 
+User can see only own data.
+- https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/views.py#L18
+
+In this application user can delete only own records. Delete functionality checks that curren user is also owner of record to be deleted. If that is not the case deletion is not done and warning log entry is created. 
+- https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/views.py#L38 
+
+When user is removed also related records are deleted automatically to maintain data ownership.
+- https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/models.py#L9
 
 ## A03:2021 – Injection
 
 Inputs from users can contain harmful content which reads, deletes or inserts data.  
 
-All data manipulation done using Django objects to prevent SQL injection on statements. Raw or prepared SQL statements are not used at all. Data selections are based on server side information, not user inputs or parameters. 
-- [views.index_view](https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/views.py#L16) 
+All data manipulation done using Django objects to prevent SQL injection on statements. Raw or prepared SQL statements are not used at all. 
+
+New record creation uses Django objects only, not raw or prepared statements
+- https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/views.py#L24 
+
+Data type for URL is Django URLField which comes with validation rules for correct format.
+- https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/models.py#L12
+
+Data selections are based on server side information, not direct user inputs.
+- https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/views.py#L18 
 
 ## A07:2021 – Identification and Authentication Failures
 
-Authentication and session management is critical for application security. General recommendation is use standard framework functionality for that. 
+Authentication and session management is critical for application security. General recommendation is use standard framework functionality for that. Framework defaults values in general and in this case session management particular should be reviewed and adjust according the needs.    
 
-This application invalidates session if browser is closed to prevent session highjack in case of shared machine. Session lifetime is also made shorter comparing to standard. Both changes are visible in settings.
-- [settings.py](https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/secprojectI/settings.py#L153)
-- [settings.py](https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/secprojectI/settings.py#L156)
+This application invalidates session if browser is closed. Default is not not do that. After this change sessions can not retrieved that easily in case of shared machine. 
+- https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/secprojectI/settings.py#L153
+
+Session lifetime is also made shorter comparing to standard setting.
+- https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/secprojectI/settings.py#L156
 
 
 ## A09:2021 – Security Logging and Monitoring Failures
@@ -85,16 +101,20 @@ Critical events such as logins, both success full and failed as well high value 
 This solution assumes that for log files there is external solution to collect those into centralized location and prevent altering. Created logs contains related session id information so that those can easily correlated in particular session.  
 
 Added log configuration is not production ready entries are created into console. That can be easily changed without any code changes. 
-- [settings.LOGGING](https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/secprojectI/settings.py#L127)
+- https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/secprojectI/settings.py#L127
 
 Log entries are created when user logs in and out. 
-- [views.login_view](https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/views.py#L49)
-- [views.logout_view](https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/views.py#L68)
+- https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/views.py#L49
+- https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/views.py#L68
+
+When user deletes own record or creates new one log entries is created for both.
+- https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/views.py#L39
+- https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/views.py#L23
 
 ## Cross-site Request Forgery
 
-CSRF attacker tries to trick innocent end user send request that benefits attacker. CSFR miss uses trust that receiving web application has towards end user: end user is login and authenticated and web application assumes that received request is valid and end user has send that intentionally. 
+CSRF attacker tries to trick innocent end user send request that benefits attacker. CSFR miss uses trust that receiving web application has towards end user: end user is login and authenticated and web application assumes that received request is valid and end user has send that intentionally. This can be done by providing fake link to end user during valid session into web application. 
 
-Django framework has build capability to prevent CSRF. All forms should contain crsf_toke which is secret, unique and unpredictable value that is generated to protect form instance. 
-- [login.html](https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/templates/flawsapp/login.html#L10)
-- [index.html](https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/templates/flawsapp/index.html#L34)   
+Django framework has build capability to prevent CSRF. All forms should contain crsf_toke which is secret, unique and unpredictable value that is generated to protect form instance. With crsf_toke application is sure that information from form is related to something that end user has requested during valid session.  
+- https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/templates/flawsapp/login.html#L10
+- https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/templates/flawsapp/index.html#L34  
