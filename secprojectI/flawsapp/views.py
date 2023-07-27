@@ -23,19 +23,22 @@ def index_view(request):
 def addnew_view(request):
     if request.method == 'POST':
         form = forms.AddURL(request.POST)
+        ser = request.user
+        session_key = request.session.session_key
         if form.is_valid():
             data = form.save(commit=False)
             data.user = request.user
             data.save()
             log_msg = "event=record added,  user=%s, session_key=%s " %(str(user), session_key)
             logger.info(log_msg)
-            return redirect('index')        
+        return redirect('index')        
     else:
         return redirect('index')
 
 @login_required(login_url='login/')
 def delete_view(request, id):
     user = request.user
+    session_key = request.session.session_key
     item = models.URLNotes.objects.get(uuid=id)
     if item.user == user:   
         item.delete()
