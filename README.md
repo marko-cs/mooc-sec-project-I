@@ -30,7 +30,7 @@ No specific set-up is needed, all needed configuration and data comes with git r
 
 Additional users can be added with Django shell according example below 
 
-```bash
+```
 Markos-MacBook-Air:secprojectI marko$ python3 manage.py shell
 Python 3.10.6 (main, Aug 30 2022, 05:12:36) [Clang 13.1.6 (clang-1316.0.21.2.5)]
 Type 'copyright', 'credits' or 'license' for more information
