@@ -31,18 +31,15 @@ No specific set-up is needed, all needed configuration and data comes with git r
 Additional users can be added with Django shell according example below 
 
 ```
-Markos-MacBook-Air:secprojectI marko$ python3 manage.py shell
+python3 manage.py shell
 Python 3.10.6 (main, Aug 30 2022, 05:12:36) [Clang 13.1.6 (clang-1316.0.21.2.5)]
 Type 'copyright', 'credits' or 'license' for more information
 IPython 8.5.0 -- An enhanced Interactive Python. Type '?' for help.
 
-In [1]: from django.contrib.auth.models import User
-   ...: 
-In [2]: user = User.objects.create_user("john", "lennon@thebeatles.com", "johnpassword")
-
-In [3]: user = User.objects.create_user("matt", "matt@black.com", "mattpassword")
-
-In [4]:                                                                                                                            
+from django.contrib.auth.models import User
+user = User.objects.create_user("john", "lennon@thebeatles.com", "johnpassword")
+user = User.objects.create_user("matt", "matt@black.com", "mattpassword")
+:                                                                                                                           
 Do you really want to exit ([y]/n)? y
 ```
 
@@ -50,7 +47,7 @@ Application can be started using Django manage.py and runserver command.
 ```
 python manage.py runserver
 ```
-By default application can be accessed using URL http://127.0.0.1:8000/ 
+By default application can be accessed using URL 127.0.0.1:8000/flawsapp/. There is two users created with credentials as above example.  
 
 # Flaws
 ## A01:2021 – Broken Access Control
