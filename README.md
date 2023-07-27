@@ -10,7 +10,7 @@ Project repository is available in https://github.com/marko-cs/mood-sec-project-
 
 ### Install
 
-This project uses only standard Python packages and Django framework. Most connivent way to install needed is follow https://cybersecuritybase.mooc.fi/installation-guide if your staring from scratch. Follow those instructions for python and other library installations. 
+This project uses only standard Python packages and Django framework. If your are staring from scratch most connivent way to install needed is follow course installation guide https://cybersecuritybase.mooc.fi/installation-guide. Follow those instructions for python and other library installations. 
 
 If you have working python installation Django can be installed with pip.
 ```
@@ -22,7 +22,7 @@ For application installation git clone should be sufficient.
 git clone git@github.com:marko-cs/mooc-sec-project-I.git
 ```
 
-If you don't have git installed all needed can be downloaded in one zip file. 
+If you don't have git installed all needed can be downloaded in one zip file Github web page. 
 
 ### Set-up
 
@@ -46,20 +46,21 @@ In [4]:
 Do you really want to exit ([y]/n)? y
 ```
 
-Application can be started using Django manage.py and runserver command.
+Application can be started using Django manage.py and runserver command. 
 ```
 python manage.py runserver
 ```
+By default application can be accessed using URL http://127.0.0.1:8000/ 
 
 # Flaws
 ## A01:2021 – Broken Access Control
 
 With broken access control user can view or manipulate data which is not owned or managed by particular user.
 
-Login is required to view or update any data in application. That use Django build in login functionality. 
+to prevent this happen login is required to view or update any data in application. That use Django build in decorator and form handling functionality. 
 - https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/views.py#L15
 
-User can see only own data.
+After valid login user can see only own data.
 - https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/views.py#L18
 
 In this application user can delete only own records. Delete functionality checks that curren user is also owner of record to be deleted. If that is not the case deletion is not done and warning log entry is created. 
@@ -70,12 +71,21 @@ When user is removed also related records are deleted automatically to maintain 
 
 ## A03:2021 – Injection
 
-Inputs from users can contain harmful content which reads, deletes or inserts data.  
+Inputs from users can contain harmful content which reads, deletes or inserts data. Typical injections are SQL injections where attacker tries to manipulate data using SQL statements which are embedded into data provided by end user. Objective is execute those on application server side. Another typical injection type is cross site scripting where attacker tries to inject code to be executed in client side.      
 
 All data manipulation done using Django objects to prevent SQL injection on statements. Raw or prepared SQL statements are not used at all. 
 
 New record creation uses Django objects only, not raw or prepared statements
 - https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/views.py#L24 
+
+Same thing could be done with prepared SQL statements.
+```python
+cursor = conn.cursor()
+sql = """INSERT INTO URLNotes (notes, url, user, uuid) VALUES (?, ?, ?, ?);"""
+params_tuple=(notes, url, user, uuid)
+cursor.execute(sql, parmas_tuple)
+conn.commit()
+```
 
 Data type for URL is Django URLField which comes with validation rules for correct format.
 - https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/models.py#L12
@@ -96,20 +106,22 @@ Session lifetime is also made shorter comparing to standard setting.
 
 ## A09:2021 – Security Logging and Monitoring Failures
 
-Critical events such as logins, both success full and failed as well high value data changes should be logged. 
+Critical events such as logins, both successful and failed, as well high value data changes should be logged. 
 
-This solution assumes that for log files there is external solution to collect those into centralized location and prevent altering. Created logs contains related session id information so that those can easily correlated in particular session.  
+Application creates several log entries. All created logs contains related session id information so that those can easily correlated in particular session.  
 
-Added log configuration is not production ready entries are created into console. That can be easily changed without any code changes. 
+Added log configuration is not production ready since log entries are created into console. That can be easily changed without any code changes. 
 - https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/secprojectI/settings.py#L127
 
 Log entries are created when user logs in and out. 
 - https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/views.py#L49
 - https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/views.py#L68
 
-When user deletes own record or creates new one log entries is created for both.
+When user deletes own record or creates new one log entries is created for both. If user tries remove record without ownership warning log entry is created. 
 - https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/views.py#L39
 - https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/views.py#L23
+
+This solution assumes that for log files there is external solution to collect those into centralized location and prevent altering.
 
 ## Cross-site Request Forgery
 
