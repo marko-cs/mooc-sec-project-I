@@ -55,7 +55,6 @@ def addnew_view(request):
 #
 # A01:2021 – Broken Access Control 
 # No authentication or any access control required for critical functionality 
-#@login_required(login_url='login/')
 def delete_view(request, id):
     user = request.user
     session_key = request.session.session_key
