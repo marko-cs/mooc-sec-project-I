@@ -81,9 +81,9 @@ On secure application there should be:
 
 **How to fix**
 - Default log configuration should be changed so that entries are created inti log files. That should be changed in [settings](https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/secprojectI/settings.py#L127).
-- Critical events such as [creation](https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/views.py#L47) or  [deletion](https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/views.py#L74) should be logged. And those created log entry should be in [easily consumable format](https://dev.splunk.com/enterprise/docs/developapps/addsupport/logging/loggingbestpractices/)
+- Critical events such as [creation](https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/views.py#L47) or  [deletion](https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/views.py#L63) should be logged. And those created log entry should be in [easily consumable format](https://dev.splunk.com/enterprise/docs/developapps/addsupport/logging/loggingbestpractices/)
 - Logs should be collected to from local storage to centralized location to prevent tampering or deletion. Also log file retention times should log enough to enable e.g. forensic analysis. And suspicious events should be detected. All that can be done with additional log monitoring tools such [Splunk](https://www.splunk.com/en_us/products/splunk-enterprise.html).   
-- Log entries are created when user logs [in](https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/views.py#L47) and [out](https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/views.py#L68). 
+- Log entries are created when user logs [in](https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/views.py#L97) and [out](https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/views.py#L113). 
 
 
 ## A03:2021 – Injection
