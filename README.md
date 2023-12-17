@@ -69,7 +69,7 @@ With broken access control user can view or manipulate data which is not owned o
 ## A09:2021 – Security Logging and Monitoring Failures
 
 Links to source 
-- https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/views.py#L78
+- https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/views.py#L74
 - https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/views.py#L99
 - https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/views.py#L115
 
@@ -83,7 +83,7 @@ On secure application there should be:
 - Default log configuration should be changed so that entries are created inti log files. That should be changed in [settings](https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/secprojectI/settings.py#L127).
 - Critical events such as [creation](https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/views.py#L38) or  [deletion](https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/views.py#L74) should be logged. And those created log entry should be in [easily consumable format](https://dev.splunk.com/enterprise/docs/developapps/addsupport/logging/loggingbestpractices/)
 - Logs should be collected to from local storage to centralized location to prevent tampering or deletion. Also log file retention times should log enough to enable e.g. forensic analysis. And suspicious events should be detected. All that can be done with additional log monitoring tools such [Splunk](https://www.splunk.com/en_us/products/splunk-enterprise.html).   
-- Log entries are created when user logs [in](https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/views.py#L101) and [out](https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/views.py#117). 
+- Log entries are created when user logs [in](https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/views.py#L101) and [out](https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/views.py#L117). 
 
 
 ## A03:2021 – Injection
@@ -104,8 +104,8 @@ This application do not use Django framework features to prevent SQL injection. 
 
 Links to source
 - https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/views.py#L88
-- https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/secprojectI/settings.py#L153
-- https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/secprojectI/settings.py#L153
+- https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/secprojectI/settings.py#L155
+- https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/secprojectI/settings.py#L160
 
 Authentication and session management is critical for application security. General recommendation is use standard framework functionality for that. Framework defaults for session management and login implementation are not following best practices.
 
