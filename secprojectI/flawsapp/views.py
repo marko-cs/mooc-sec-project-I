@@ -55,15 +55,19 @@ def addnew_view(request):
 #
 # A01:2021 – Broken Access Control 
 # No authentication or any access control required for critical functionality 
-#@login_required(login_url='login/')
+# No record ownership check before delete 
 def delete_view(request, id):
     user = request.user
     session_key = request.session.session_key
+    #
+    # A09:2021 – Security Logging and Monitoring Failures
+    # No log entries created for delete operation 
     item = models.URLNotes.objects.get(uuid=id)
+    item.delete()
     return redirect('index')
     #
     # A01:2021 – Broken Access Control
-    # No ownership check for record 
+    # How to fix: add ownership check 
     #if item.user == user:   
     #    item.delete()
 
@@ -77,6 +81,8 @@ def delete_view(request, id):
     #    logger.warning(log_msg)       
     #return redirect('index')
 
+# A07:2021 – Identification and Authentication Failures
+# No counter for failed logins attempts and there fore allowing brute force and dictionary attacks 
 def login_view(request):
     if request.method == 'POST':
         form = AuthenticationForm(data=request.POST)
@@ -86,8 +92,10 @@ def login_view(request):
             if not request.session.session_key:
                 request.session.create()
             session_key = request.session.session_key
-            log_msg = "event=login,  user=%s, session_key=%s " %(str(user), session_key)
-            logger.info(log_msg)
+            # A09:2021 – Security Logging and Monitoring Failures
+            # No log entries created 
+            #log_msg = "event=login,  user=%s, session_key=%s " %(str(user), session_key)
+            #logger.info(log_msg)
             if 'next' in request.POST:
                 return redirect(request.POST.get('next'))
             else:
@@ -100,7 +108,9 @@ def logout_view(request):
     if request.method == 'POST':
         session_key = request.session.session_key
         user = request.user
-        log_msg = "event=logout,  user=%s, session_key=%s " %(str(user), session_key)
-        logger.info(log_msg)
+        # A09:2021 – Security Logging and Monitoring Failures
+        # No log entries created 
+        #log_msg = "event=logout,  user=%s, session_key=%s " %(str(user), session_key)
+        #logger.info(log_msg)
         logout(request)
         return redirect('index')

@@ -124,6 +124,9 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# A09:2021 – Security Logging and Monitoring Failures
+# Logging to file should be enabled by uncommenting config below 
+"""
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -146,6 +149,7 @@ LOGGING = {
         },
     },
 }
+"""
 #
 # Modifications to default values to improve security and maybe hip a bit of usability 
 #
