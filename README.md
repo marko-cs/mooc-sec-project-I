@@ -55,7 +55,7 @@ Application is simple web application storing URL and notes related that. Each r
 
 ## A01:2021 – Broken Access Control
 
-Link to source https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/views.py#L59
+Link to source https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/views.py#L58
 
 With broken access control user can view or manipulate data which is not owned or managed by particular user. By default Django application don't require authentication and anyone knowing URL can use that functionality to delete any records. On secure applications there should be  
 - Deny by default principle: Only authorized users can use such critical functionality such as delete and 
