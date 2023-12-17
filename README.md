@@ -124,12 +124,14 @@ Install and configure [django-axes module](https://django-axes.readthedocs.io/en
 
 ## Cross-site Request Forgery
 
-Link to source 
+Links to source
+- https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/templates/flawsapp/login.html#L10
+- https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/templates/flawsapp/index.html#L34  
 
 CSRF attacker tries to trick innocent end user send request that benefits attacker. CSFR miss uses trust that receiving web application has towards end user: end user is login and authenticated and web application assumes that received request is valid and end user has send that intentionally. This can be done by providing fake link to end user during valid session into web application. 
 
 **How to fix**
 
-Django framework has build capability to prevent CSRF. All forms should contain crsf_toke which is secret, unique and unpredictable value that is generated to protect form instance. With crsf_toke application is sure that information from form is related to something that end user has requested during valid session.  
-- https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/templates/flawsapp/login.html#L10
-- https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/templates/flawsapp/index.html#L34  
+Django framework has build capability to prevent CSRF. All forms should contain crsf_toke which is secret, unique and unpredictable value that is generated to protect form instance. With crsf_toke application is sure that information from form is related to something that end user has requested during valid session.
+
+In this application build in functionality can take into use by un-commenting csrf_token tag in [login.html](https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/templates/flawsapp/login.html#L10) and [index.html](https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/templates/flawsapp/index.html#L34). 
