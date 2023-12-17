@@ -63,15 +63,15 @@ With broken access control user can view or manipulate data which is not owned o
 
 **How to fix**
 - With decorator it easy to ensure that only authorized users can use functionality and that way enforce deny by default. We should add decorator [@login_required(login_url='login/') to delete_view](https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/views.py#L58)
-- There should be check that authorized [user can delete only own records](https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/views.py#L66) and to enforce ownership and not allowing user delete any record.
+- There should be check that authorized [user can delete only own records](https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/views.py#L69) and to enforce ownership and not allowing user delete any record.
 - [When user is removed also related records are deleted automatically](https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/models.py#L9) to maintain data ownership. 
 
 ## A09:2021 – Security Logging and Monitoring Failures
 
 Links to source 
-- https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/views.py#L70
-- https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/views.py#L89
-- https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/views.py#L103
+- https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/views.py#L63
+- https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/views.py#L95
+- https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/views.py#L111
 
 Hostile party can conduct forbidden activities within application without get noticed if logging is not planned and implemented well. Planned logging creates visibility on e.g. possible brute force attacks, data ownership breaches and critical application events. If application admins do not have that information available, it is not possible to monitoring application, react to events and do forensic analysis after security or other incident.    
 
@@ -81,9 +81,9 @@ On secure application there should be:
 
 **How to fix**
 - Default log configuration should be changed so that entries are created inti log files. That should be changed in [settings](https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/secprojectI/settings.py#L127).
-- Critical events such as [creation](https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/views.py#L47) or  [deletion](https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/views.py#L70) should be logged. And those created log entry should be in [easily consumable format](https://dev.splunk.com/enterprise/docs/developapps/addsupport/logging/loggingbestpractices/)
+- Critical events such as [creation](https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/views.py#L47) or  [deletion](https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/views.py#L74) should be logged. And those created log entry should be in [easily consumable format](https://dev.splunk.com/enterprise/docs/developapps/addsupport/logging/loggingbestpractices/)
 - Logs should be collected to from local storage to centralized location to prevent tampering or deletion. Also log file retention times should log enough to enable e.g. forensic analysis. And suspicious events should be detected. All that can be done with additional log monitoring tools such [Splunk](https://www.splunk.com/en_us/products/splunk-enterprise.html).   
-- Log entries are created when user logs [in](https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/views.py#L49) and [out](https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/views.py#L68). 
+- Log entries are created when user logs [in](https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/views.py#L47) and [out](https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/views.py#L68). 
 
 
 ## A03:2021 – Injection
@@ -97,7 +97,7 @@ This application do not use Django framework features to prevent SQL injection. 
 **How to fix**
 
 - By default Django provides Object Relational Mapping Tools. Those should be used for data and database record management instead of SQL statements. [New record creation uses Django objects](https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/views.py#L24) only, not raw or prepared statements. 
-- Data type for URL is [Django URLField which comes with validation rules](https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/models.py#L12) for correct format.
+- Data type for URL is [Django URLField which comes with validation rules](https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/models.py#L14) for correct format.
 - [Data selections are based on server side information](https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/views.py#L18), not direct user inputs.
  
 
@@ -105,8 +105,8 @@ This application do not use Django framework features to prevent SQL injection. 
 
 Links to source
 - https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/views.py#L84
-- https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/secprojectI/settings.py#L153
-- https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/secprojectI/settings.py#L153
+- https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/secprojectI/settings.py#L156
+- https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/secprojectI/settings.py#L160
 
 Authentication and session management is critical for application security. General recommendation is use standard framework functionality for that. Framework defaults for session management and login implementation are not following best practices.
 
