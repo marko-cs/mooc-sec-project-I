@@ -34,17 +34,25 @@ def addnew_view(request):
         sql = "INSERT INTO flawsapp_urlnotes (notes, url, uuid, user_id) VALUES ('%s', '%s', '%s', %s);" %(notes, url, uuid, user)
         cursor = connection.cursor()
         cursor.execute(sql)
-        connection.commit() 
+        connection.commit()
+        # A09:2021 – Security Logging and Monitoring Failures
+        # When new data record is created, it should be logged into log
+        #log_msg = "event=record added,  user=%s, session_key=%s " %(user, session_key)
+        #logger.info(log_msg) 
+    return redirect('index')  
 
-        #form = forms.AddURL(request.POST)
-        #user = request.user
-        #session_key = request.session.session_key   
-        #if form.is_valid():
-        #    data = form.save(commit=False)
-        #    data.user = user
-        #    data.save()
-
-            # A09:2021 – Security Logging and Monitoring Failures
+# A03:2021 – Injection
+# Fixed version for adding entry 
+@login_required(login_url='login/')
+def addnew_view_fixed(request):     
+    if request.method == 'POST':
+        form = forms.AddURL(request.POST)
+        user = request.user
+        session_key = request.session.session_key   
+        if form.is_valid():
+            data = form.save(commit=False)
+            data.user = user
+            data.save()
             # When new data record is created, it should be logged into log
             #log_msg = "event=record added,  user=%s, session_key=%s " %(user, session_key)
             #logger.info(log_msg)
@@ -60,26 +68,22 @@ def delete_view(request, id):
     user = request.user
     session_key = request.session.session_key
     #
-    # A09:2021 – Security Logging and Monitoring Failures
-    # No log entries created for delete operation 
+    # 
+    # 
     item = models.URLNotes.objects.get(uuid=id)
+    # A09:2021 – Security Logging and Monitoring Failures
+    # Deletion of record should be logged 
+    # log_msg = "event=record deleted,  user=%s, session_key=%s " %(str(user), session_key)
+    # logger.info(log_msg)
     item.delete()
-    return redirect('index')
     #
     # A01:2021 – Broken Access Control
     # How to fix: add ownership check 
     #if item.user == user:   
     #    item.delete()
+    return redirect('index')
 
-    # A09:2021 – Security Logging and Monitoring Failures
-    # Deletion of record should be logged 
-    #    log_msg = "event=record deleted,  user=%s, session_key=%s " %(str(user), session_key)
-    #    logger.info(log_msg)
-    #else:
-    # Also attempt to remove someones else record is critical event 
-    #    log_msg = "event=security event,  user=%s, session_key=%s, info=User %s trying to delete record owned by %s " %(str(user), session_key, user, item.user)
-    #    logger.warning(log_msg)       
-    #return redirect('index')
+
 
 # A07:2021 – Identification and Authentication Failures
 # No counter for failed logins attempts and there fore allowing brute force and dictionary attacks 

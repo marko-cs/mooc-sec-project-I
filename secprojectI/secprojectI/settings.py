@@ -150,11 +150,13 @@ LOGGING = {
     },
 }
 """
+
 #
-# Modifications to default values to improve security and maybe hip a bit of usability 
+# Kill session when browser is closed
+# A07:2021 – Identification and Authentication Failures
+# No in use, but should be because someone cloud use same session   
+# SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 #
-# Kill session when browser is closed 
-SESSION_EXPIRE_AT_BROWSER_CLOSE = True
-#
-# Expire after session 30 minutes
-SESSION_EXPIRE_SECONDS = 1800 
+# A07:2021 – Identification and Authentication Failures
+# Set session timeout. This will expire after session 30 minutes
+# SESSION_EXPIRE_SECONDS = 1800 
