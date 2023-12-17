@@ -3,7 +3,10 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout
+from django.db import connection
 import logging
+from uuid import uuid4
+
 
 from . import forms
 from . import models  
@@ -22,32 +25,57 @@ def index_view(request):
 @login_required(login_url='login/')
 def addnew_view(request):
     if request.method == 'POST':
-        form = forms.AddURL(request.POST)
-        user = request.user
-        session_key = request.session.session_key
-        if form.is_valid():
-            data = form.save(commit=False)
-            data.user = user
-            data.save()
-            log_msg = "event=record added,  user=%s, session_key=%s " %(user, session_key)
-            logger.info(log_msg)
+        # A03:2021 – Injection
+        # Input from user should be checked and validated
+        notes = request.POST.get('notes', '')
+        url = request.POST.get('url', '')
+        uuid = uuid4()
+        user = request.user.id
+        sql = "INSERT INTO flawsapp_urlnotes (notes, url, uuid, user_id) VALUES ('%s', '%s', '%s', %s);" %(notes, url, uuid, user)
+        cursor = connection.cursor()
+        cursor.execute(sql)
+        connection.commit() 
+
+        #form = forms.AddURL(request.POST)
+        #user = request.user
+        #session_key = request.session.session_key   
+        #if form.is_valid():
+        #    data = form.save(commit=False)
+        #    data.user = user
+        #    data.save()
+
+            # A09:2021 – Security Logging and Monitoring Failures
+            # When new data record is created, it should be logged into log
+            #log_msg = "event=record added,  user=%s, session_key=%s " %(user, session_key)
+            #logger.info(log_msg)
         return redirect('index')        
     else:
         return redirect('index')
 
-@login_required(login_url='login/')
+#
+# A01:2021 – Broken Access Control 
+# No authentication or any access control required for critical functionality 
+#@login_required(login_url='login/')
 def delete_view(request, id):
     user = request.user
     session_key = request.session.session_key
     item = models.URLNotes.objects.get(uuid=id)
-    if item.user == user:   
-        item.delete()
-        log_msg = "event=record deleted,  user=%s, session_key=%s " %(str(user), session_key)
-        logger.info(log_msg)
-    else:
-        log_msg = "event=security event,  user=%s, session_key=%s, info=User %s trying to delete record owned by %s " %(str(user), session_key, user, item.user)
-        logger.warning(log_msg)       
     return redirect('index')
+    #
+    # A01:2021 – Broken Access Control
+    # No ownership check for record 
+    #if item.user == user:   
+    #    item.delete()
+
+    # A09:2021 – Security Logging and Monitoring Failures
+    # Deletion of record should be logged 
+    #    log_msg = "event=record deleted,  user=%s, session_key=%s " %(str(user), session_key)
+    #    logger.info(log_msg)
+    #else:
+    # Also attempt to remove someones else record is critical event 
+    #    log_msg = "event=security event,  user=%s, session_key=%s, info=User %s trying to delete record owned by %s " %(str(user), session_key, user, item.user)
+    #    logger.warning(log_msg)       
+    #return redirect('index')
 
 def login_view(request):
     if request.method == 'POST':
