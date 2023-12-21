@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-p!)@)(apeu8rl!ae@%_hvg6&g_f#(w7x$0ai#^#l*kf682oe#c'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = True # A05:2021 – Security Misconfiguration, should be DEBUG = Flase
 
 ALLOWED_HOSTS = []
 
