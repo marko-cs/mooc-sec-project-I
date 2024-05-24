@@ -1,6 +1,12 @@
 # mood-sec-project-I
 
-This project has been created for course https://cybersecuritybase.mooc.fi/module-3.1. 
+This project has been originally created for course https://cybersecuritybase.mooc.fi/module-3.1. Since that is has been used also on https://devopswithdocker.com/.
+
+# Devops with Docker
+
+[Dockerfile](./Dockerfile) added and tested how it can deployed to cloud using command line. After that needed configuration added for the Github Actions. 
+
+Direct link to application https://kumpula-app.fly.dev/flawsapp/ 
 
 # Project
 
