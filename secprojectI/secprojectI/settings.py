@@ -26,8 +26,9 @@ SECRET_KEY = 'django-insecure-p!)@)(apeu8rl!ae@%_hvg6&g_f#(w7x$0ai#^#l*kf682oe#c
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True # A05:2021 – Security Misconfiguration, should be DEBUG = Flase
 
-ALLOWED_HOSTS = []
-
+# To run this in cloud for devops with docker course 
+ALLOWED_HOSTS = ['.fly.dev']
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # Application definition
 
