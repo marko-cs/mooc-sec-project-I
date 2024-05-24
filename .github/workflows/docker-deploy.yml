@@ -29,8 +29,11 @@ jobs:
         push: true
         tags: ${{ secrets.DOCKERHUB_USERNAME }}/kumpula-app:latest
 
+
+    - name: Install Flyctl
+      uses: superfly/flyctl-actions/setup-flyctl@master
+
     - name: Deploy to Fly.io
-      - uses: superfly/flyctl-actions/setup-flyctl@master
-      - run: flyctl deploy --image ${{ secrets.DOCKERHUB_USERNAME }}/my-app:latest --app kumpula-name
-      - env:
-          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+      run: flyctl deploy --image ${{ secrets.DOCKERHUB_USERNAME }}/kumpula-app:latest --app kumpula-name
+      env:
+        FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
