@@ -34,6 +34,6 @@ jobs:
       uses: superfly/flyctl-actions/setup-flyctl@master
 
     - name: Deploy to Fly.io
-      run: flyctl deploy --image ${{ secrets.DOCKERHUB_USERNAME }}/kumpula-app:latest --app kumpula-name
+      run: flyctl deploy --image ${{ secrets.DOCKERHUB_USERNAME }}/kumpula-app:latest --app kumpula-app
       env:
         FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
