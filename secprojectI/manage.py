@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 """Django's command-line utility for administrative tasks."""
+
+# just play around with comments to trigger github actions 
 import os
 import sys
 
