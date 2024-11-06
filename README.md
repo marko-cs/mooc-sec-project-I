@@ -4,9 +4,11 @@ This project has been originally created for course https://cybersecuritybase.mo
 
 # Devops with Docker
 
-[Dockerfile](./Dockerfile) added and tested how it can deployed to cloud using command line. After that needed configuration added for the Github Actions. 
+[Dockerfile](./Dockerfile) added and tested how it can deploy to cloud using command line. After that needed configuration added for the Github Actions. 
 
 Direct link to application https://kumpula-app.fly.dev/flawsapp/ 
+
+This same app will used also for the Full Stack Open CI/CD course. 
 
 # Project
 
