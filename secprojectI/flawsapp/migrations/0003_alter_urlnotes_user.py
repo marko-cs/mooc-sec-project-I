@@ -9,13 +9,15 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('flawsapp', '0002_remove_urlnotes_id_urlnotes_uuid'),
+        ("flawsapp", "0002_remove_urlnotes_id_urlnotes_uuid"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='urlnotes',
-            name='user',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL),
+            model_name="urlnotes",
+            name="user",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL
+            ),
         ),
     ]

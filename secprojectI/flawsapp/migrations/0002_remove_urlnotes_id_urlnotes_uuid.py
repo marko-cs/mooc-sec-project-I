@@ -7,17 +7,23 @@ import uuid
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('flawsapp', '0001_initial'),
+        ("flawsapp", "0001_initial"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='urlnotes',
-            name='id',
+            model_name="urlnotes",
+            name="id",
         ),
         migrations.AddField(
-            model_name='urlnotes',
-            name='uuid',
-            field=models.UUIDField(auto_created=True, default=uuid.uuid4, editable=False, primary_key=True, serialize=False),
+            model_name="urlnotes",
+            name="uuid",
+            field=models.UUIDField(
+                auto_created=True,
+                default=uuid.uuid4,
+                editable=False,
+                primary_key=True,
+                serialize=False,
+            ),
         ),
     ]

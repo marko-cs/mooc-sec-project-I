@@ -1,6 +1,12 @@
+"""
+This module contains the configuration for the FlawsApp Django application.
+"""
+
 from django.apps import AppConfig
 
-
 class FlawsappConfig(AppConfig):
-    default_auto_field = 'django.db.models.BigAutoField'
-    name = 'flawsapp'
+    """
+    Trival config such as app name
+    """
+    default_auto_field = "django.db.models.BigAutoField"
+    name = "flawsapp"

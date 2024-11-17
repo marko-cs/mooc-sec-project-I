@@ -1,0 +1,6 @@
+[MASTER]
+load-plugins=pylint_django
+
+# Exclude migrations folder from pylint checks
+ignore=flawsapp/migrations
+
