@@ -27,12 +27,15 @@ jobs:
 
     - name: Set DJANGO_SETTINGS_MODULE for Pylint
       run: |
-        export DJANGO_SETTINGS_MODULE=secprojectI.secprojectI.settings
+        export DJANGO_SETTINGS_MODULE=secprojectI.settings
         echo "DJANGO_SETTINGS_MODULE:: ${DJANGO_SETTINGS_MODULE}"
 
     - name: Run Pylint
       run: |
-        pylint --load-plugins=pylint_django secprojectI/flawsapp/ 
+        echo "DJANGO_SETTINGS_MODULE:: ${DJANGO_SETTINGS_MODULE}"
+        export DJANGO_SETTINGS_MODULE=""
+        echo "DJANGO_SETTINGS_MODULE:: ${DJANGO_SETTINGS_MODULE}"
+        pylint --load-plugins=pylint_django --django-settings-module=secprojectI.settings secprojectI/flawsapp/ 
       continue-on-error: false  # Fail the job if Pylint returns errors
 
     - name: Run migrations
