@@ -24,6 +24,10 @@ jobs:
         python -m pip install --upgrade pip
         pip install pylint pylint_django django pytest pytest-django 
 
+    - name: Set DJANGO_SETTINGS_MODULE for Pylint
+      run: |
+        export DJANGO_SETTINGS_MODULE=secprojectI.settings
+
     - name: Run Pylint
       run: |
         pylint --load-plugins=pylint_django secprojectI/flawsapp/ 
