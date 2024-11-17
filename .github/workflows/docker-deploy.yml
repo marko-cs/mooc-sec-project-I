@@ -25,22 +25,15 @@ jobs:
         pip install pylint pylint_django django pytest pytest-django
         python secprojectI/manage.py check 
 
-    - name: Set DJANGO_SETTINGS_MODULE for Pylint
-      run: |
-        export DJANGO_SETTINGS_MODULE=secprojectI.settings
-        echo "DJANGO_SETTINGS_MODULE:: ${DJANGO_SETTINGS_MODULE}"
 
     - name: Run Pylint
       run: |
-        echo "DJANGO_SETTINGS_MODULE:: ${DJANGO_SETTINGS_MODULE}"
-        export DJANGO_SETTINGS_MODULE=""
-        echo "DJANGO_SETTINGS_MODULE:: ${DJANGO_SETTINGS_MODULE}"
         pylint --load-plugins=pylint_django --django-settings-module=secprojectI.settings secprojectI/flawsapp/ 
       continue-on-error: false  # Fail the job if Pylint returns errors
 
     - name: Run migrations
       run: |
-        python manage.py migrate
+        python secprojectI/manage.py migrate
 
     - name: Run Django tests
       run: |
@@ -50,6 +43,7 @@ jobs:
   build-and-deploy:
     name: Build Docker image and deploy to Fly.io
     runs-on: ubuntu-latest
+    needs: lint-and-test
 
     steps:
     - name: Checkout code
