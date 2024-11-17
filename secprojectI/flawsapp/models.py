@@ -24,3 +24,7 @@ class URLNotes(models.Model):
     )
     notes = models.TextField()
     url = models.URLField()
+
+    def __str__(self):
+        """Return the notes field as the string representation."""
+        return self.notes
