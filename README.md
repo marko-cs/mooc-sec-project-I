@@ -1,6 +1,6 @@
 # mood-sec-project-I
 
-This project has been originally created for the course https://cybersecuritybase.mooc.fi/module-3.1. Since that is has been used also on https://devopswithdocker.com/.
+This project has been originally created for the course https://cybersecuritybase.mooc.fi/module-3.1. Since that is has been used also on https://devopswithdocker.com/ and https://fullstackopen.com/en/part11.
 
 # Devops with Docker
 
