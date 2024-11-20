@@ -5,6 +5,7 @@ on:
       - main
     paths:
       - "secprojectI/**"
+      - "README.md"
 
 jobs:
   lint-and-test:
