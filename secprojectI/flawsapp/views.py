@@ -55,7 +55,7 @@ def addnew_view(request):
         # A09:2021 – Security Logging and Monitoring Failures
         # When new data record is created, it should be logged into log
         session_key = request.session.session_key
-        log_msg = "event=record added,  user=%s, session_key=%s " %(user, session_key)
+        log_msg = f"event=record added, user={user}, session_key={session_key}"
         logger.info(log_msg)
     return redirect("index")
 
@@ -74,7 +74,7 @@ def addnew_view_fixed(request):
             data.save()
             # When new data record is created, it should be logged into log
             session_key = request.session.session_key
-            log_msg = "event=record added,  user=%s, session_key=%s " %(user, session_key)
+            log_msg = f"event=record added, user={user}, session_key={session_key}"
             logger.info(log_msg)
     return redirect("index")
 
@@ -90,7 +90,7 @@ def delete_view(request, item_id):
     # Fixed: Deletion of record should are logged
     user = request.user
     session_key = request.session.session_key
-    log_msg = "event=record deleted,  user=%s, session_key=%s " %(str(user), session_key)
+    log_msg = f"event=record deleted, user={user}, session_key={session_key}"
     logger.info(log_msg)
     #
     # A01:2021 – Broken Access Control
@@ -114,7 +114,7 @@ def login_view(request):
             # A09:2021 – Security Logging and Monitoring Failures
             # Fixed: Log entries created
             session_key = request.session.session_key
-            log_msg = "event=login,  user=%s, session_key=%s " %(str(user), session_key)
+            log_msg = f"event=login, user={user}, session_key={session_key}" 
             logger.info(log_msg)
             if "next" in request.POST:
                 return redirect(request.POST.get("next"))
@@ -132,7 +132,7 @@ def logout_view(request):
         # Fixed: log entries created
         session_key = request.session.session_key
         user = request.user
-        log_msg = "event=logout,  user=%s, session_key=%s " %(str(user), session_key)
+        log_msg = f"event=login, user={user}, session_key={session_key}"
         logger.info(log_msg)
         logout(request)
     return redirect("index")
