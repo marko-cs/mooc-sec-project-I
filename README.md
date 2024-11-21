@@ -70,7 +70,7 @@ With broken access control, users can view or manipulate data that is not owned 
 **How to fix**
 - [ ] With the decorator it is easy to ensure that only authorized users can use functionality and that way enforce deny by default. We should add decorator @login_required(login_url='login/') to delete_view https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/views.py#L67
 - [x] There should be a check that an authorized user can delete only their own records and to enforce ownership and not allowing users to delete any record.
-- [ ] When a user is removed, also related records are deleted automatically https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/models.py#L9 to maintain data ownership.
+- [x] When a user is removed, also related records are deleted automatically to maintain data ownership.
 
 ## A09:2021 – Security Logging and Monitoring Failures
 
