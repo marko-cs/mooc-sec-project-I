@@ -91,12 +91,11 @@ def delete_view(request, item_id):
     # session_key = request.session.session_key
     # log_msg = "event=record deleted,  user=%s, session_key=%s " %(str(user), session_key)
     # logger.info(log_msg)
-    item.delete()
     #
     # A01:2021 – Broken Access Control
-    # How to fix: add ownership check
-    # if item.user == user:
-    #    item.delete()
+    # Fixed: add ownership check
+    if item.user == request.user:
+        item.delete()
     return redirect("index")
 
 

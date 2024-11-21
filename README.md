@@ -2,13 +2,13 @@
 
 This project has been originally created for the course https://cybersecuritybase.mooc.fi/module-3.1. Since that is has been used also on https://devopswithdocker.com/ and https://fullstackopen.com/en/part11.
 
-# Devops with Docker
+## Devops with Docker and Full Stack Open CI/CD
 
 [Dockerfile](./Dockerfile) added and tested how it can deploy to the cloud using the command line. After that, the needed configuration was added for the GitHub Actions.
 
 Direct link to application: https://kumpula-app.fly.dev/flawsapp/
 
-This same app will also be used for the Full Stack Open CI/CD course.
+This same app will also be used for the Full Stack Open CI/CD course. GitHub Actions are updated according to Full Stack Open CI/CD requirements.  
 
 # Project
 
@@ -62,17 +62,15 @@ The application is a simple web application storing URLs and notes related to th
 
 ## A01:2021 – Broken Access Control
 
-Link to source: https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/views.py#L64
-
 With broken access control, users can view or manipulate data that is not owned or managed by a particular user. By default, Django applications don't require authentication, and anyone knowing the URL can use that functionality to delete any records. On secure applications there should be
 - Deny by default principle: Only authorized users can use such critical functionality as delete and
 - Enforce data ownership: Only the owner of data should be able to manipulate data, not any or all users.
 
 
 **How to fix**
-- With the decorator it is easy to ensure that only authorized users can use functionality and that way enforce deny by default. We should add decorator @login_required(login_url='login/') to delete_view https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/views.py#L67
-- There should be a check that an authorized user can delete only their own records https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/views.py#L80 and to enforce ownership and not allowing users to delete any record.
-- When a user is removed, also related records are deleted automatically https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/models.py#L9 to maintain data ownership.
+- [ ] With the decorator it is easy to ensure that only authorized users can use functionality and that way enforce deny by default. We should add decorator @login_required(login_url='login/') to delete_view https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/views.py#L67
+- [x] There should be a check that an authorized user can delete only their own records and to enforce ownership and not allowing users to delete any record.
+- [ ] When a user is removed, also related records are deleted automatically https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/models.py#L9 to maintain data ownership.
 
 ## A09:2021 – Security Logging and Monitoring Failures
 
@@ -100,7 +98,7 @@ Link to source: https://github.com/marko-cs/mooc-sec-project-I/blob/main/secproj
 
 Inputs from users can contain harmful content that reads, deletes, or inserts data. Typical injections are SQL injections where an attacker tries to manipulate data using SQL statements that are embedded into data provided by the end user. The objective is to execute those on the application server side.
 
-This application does not use Django framework features to prevent SQL injection. Instead we are using raw SQL and string operations to build those.
+This application does not use Django framework features to prevent SQL injection. Instead, we are using raw SQL and string operations to build those.
 
 **How to fix**
 
