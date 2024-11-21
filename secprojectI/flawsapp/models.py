@@ -17,7 +17,7 @@ class URLNotes(models.Model):
     """
 
     # A01:2021 – Broken Access Control
-    # on_delete=models.CASCADE should be added to ForeignKey definition below
+    # on_delete=models.CASCADE added to ForeignKey definition below
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     uuid = models.UUIDField(
         primary_key=True, default=uuid.uuid4, editable=False, auto_created=True
