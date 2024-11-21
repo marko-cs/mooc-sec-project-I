@@ -114,7 +114,7 @@ def login_view(request):
             # A09:2021 – Security Logging and Monitoring Failures
             # Fixed: Log entries created
             session_key = request.session.session_key
-            log_msg = f"event=login, user={user}, session_key={session_key}" 
+            log_msg = f"event=login, user={user}, session_key={session_key}"
             logger.info(log_msg)
             if "next" in request.POST:
                 return redirect(request.POST.get("next"))
