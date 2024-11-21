@@ -74,11 +74,6 @@ With broken access control, users can view or manipulate data that is not owned 
 
 ## A09:2021 – Security Logging and Monitoring Failures
 
-Links to source
-- https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/views.py#L74
-- https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/views.py#L99
-- https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/views.py#L115
-
 Hostile parties can conduct forbidden activities within the application without getting noticed if logging is not planned and implemented well. Planned logging creates visibility on e.g., possible brute force attacks, data ownership breaches, and critical application events. If application admins do not have that information available, it is not possible to monitor applications, react to events, and do forensic analysis after security or other incidents.
 
 On a secure application, there should be:
@@ -86,10 +81,10 @@ On a secure application, there should be:
 - Generated log files should not be stored only locally.
 
 **How to fix**
-- Default log configuration should be changed so that entries are created in log files. That should be changed in settings https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/secprojectI/settings.py#L127.
-- Critical events such as creation https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/views.py#L38 or deletion https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/views.py#L74 should be logged. And those created log entries should be in an easily consumable format: https://dev.splunk.com/enterprise/docs/developapps/addsupport/logging/loggingbestpractices/
-- Logs should be collected from local storage to a centralized location to prevent tampering or deletion. Also, log file retention times should be long enough to enable, e.g., forensic analysis. And suspicious events should be detected. All that can be done with additional log monitoring tools such as Splunk https://www.splunk.com/en_us/products/splunk-enterprise.html.
-- Log entries are created when the user logs in https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/views.py#L101 and out https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/views.py#L117.
+- [ ] Default log configuration should be changed so that entries are created in log files. That should be changed in settings https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/secprojectI/settings.py#L127.
+- [x] Critical events such as creation https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/views.py#L38 or deletion https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/views.py#L74 should be logged. And those created log entries should be in an easily consumable format: https://dev.splunk.com/enterprise/docs/developapps/addsupport/logging/loggingbestpractices/
+- [ ] Logs should be collected from local storage to a centralized location to prevent tampering or deletion. Also, log file retention times should be long enough to enable, e.g., forensic analysis. And suspicious events should be detected. All that can be done with additional log monitoring tools such as Splunk https://www.splunk.com/en_us/products/splunk-enterprise.html.
+- [ ] Log entries are created when the user logs in https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/views.py#L101 and out https://github.com/marko-cs/mooc-sec-project-I/blob/main/secprojectI/flawsapp/views.py#L117.
 
 
 ## A03:2021 – Injection
