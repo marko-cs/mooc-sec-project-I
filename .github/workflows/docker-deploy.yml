@@ -6,6 +6,14 @@ on:
     paths:
       - "secprojectI/**"
       - "README.md"
+  
+  # Trigger the workflow on pull request events
+  pull_request:
+    branches:
+        - main
+    paths:
+      - "secprojectI/**"
+      - "README.md"
 
 jobs:
   lint-and-test:
